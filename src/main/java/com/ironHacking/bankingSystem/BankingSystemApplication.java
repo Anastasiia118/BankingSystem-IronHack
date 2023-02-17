@@ -3,22 +3,35 @@ package com.ironHacking.bankingSystem;
 import com.ironHacking.bankingSystem.models.accounts.Account;
 import com.ironHacking.bankingSystem.models.accounts.Checking;
 import com.ironHacking.bankingSystem.models.users.AccountHolder;
+import com.ironHacking.bankingSystem.models.users.Admins;
+import com.ironHacking.bankingSystem.models.users.Role;
 import com.ironHacking.bankingSystem.models.utilities.Address;
 import com.ironHacking.bankingSystem.repositories.AccountHolderRepository;
 import com.ironHacking.bankingSystem.repositories.AccountRepository;
+import com.ironHacking.bankingSystem.repositories.AdminsRepository;
 import com.ironHacking.bankingSystem.repositories.CheckingRepository;
+import com.ironHacking.bankingSystem.services.AdminsService;
+import com.ironHacking.bankingSystem.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @SpringBootApplication
 public class BankingSystemApplication implements CommandLineRunner {
 	@Autowired
+	PasswordEncoder passwordEncoder;
+	@Autowired
 	AccountRepository accountRepository;
+
+	@Autowired
+	AdminsRepository adminsRepository;
 
 	@Autowired
 	AccountHolderRepository accountHolderRepository;
@@ -26,12 +39,20 @@ public class BankingSystemApplication implements CommandLineRunner {
 	@Autowired
 	CheckingRepository checkingRepository;
 
+	@Autowired
+	UserService userService;
+
+	@Autowired
+	AdminsService adminsService;
+
 	public static void main(String[] args) {
 		SpringApplication.run(BankingSystemApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
+		userService.saveRole(new Role(null, "ROLE_ACCOUNT_HOLDER"));
+		userService.saveRole(new Role(null, "ROLE_ADMIN"));
 
 		//public Address(String address, Integer postalCode, String city, String country)
 
@@ -40,14 +61,18 @@ public class BankingSystemApplication implements CommandLineRunner {
 
 
 		//public AccountHolder(String name, LocalDate dateOfBirth, Address primaryAddress, Address mailingAddress)
-		AccountHolder owner = new AccountHolder("Max", LocalDate.of(1984, 03, 02), firstAddress, firstAddress);
+		AccountHolder owner = new AccountHolder("Ana", "userAna", passwordEncoder.encode("76567"), new ArrayList<>(), LocalDate.of(1984, 03, 02), firstAddress, firstAddress);
 		accountHolderRepository.save(owner);
-		AccountHolder owner2 = new AccountHolder("Sophia", LocalDate.of(2000, 8, 11), secAddress, secAddress);
-		accountHolderRepository.save(owner2);
+		userService.addRoleToUser("userAna", "ROLE_ACCOUNT_HOLDER");
+		Admins admin1 = new Admins("Hugh", "adminHugh", passwordEncoder.encode("76567"), new ArrayList<>());
+		adminsRepository.save(admin1);
+		userService.addRoleToUser("adminHugh", "ROLE_ADMIN");
 
 		//public Checking(BigDecimal balance, String secretKey, @NotNull AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal penaltyFee, BigDecimal minimumBalance, BigDecimal monthlyMaintenanceFee)
 
 		checkingRepository.save(new Checking(new BigDecimal("1222"), "secretik", owner, owner));
+
+
 	}
 
 

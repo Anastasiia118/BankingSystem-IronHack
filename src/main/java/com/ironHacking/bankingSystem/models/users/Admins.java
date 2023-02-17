@@ -2,29 +2,16 @@ package com.ironHacking.bankingSystem.models.users;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
-public class Admins {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class Admins extends User{
 
-    private String name;
-
-
-    public String getName() {
-        return name;
+    public Admins() {
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Admins(String name, String username, String password, Collection<Role> roles) {
+        super(null, name, username, password, roles);
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

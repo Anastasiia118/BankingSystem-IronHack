@@ -6,15 +6,11 @@ import jakarta.persistence.*;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Entity
-public class AccountHolder {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class AccountHolder extends User {
 
-    private String name;
 
     @NotNull
     private LocalDate dateOfBirth;
@@ -35,19 +31,11 @@ public class AccountHolder {
     public AccountHolder() {
     }
 
-    public AccountHolder(String name, LocalDate dateOfBirth, Address primaryAddress, Address mailingAddress) {
-        this.name = name;
+    public AccountHolder(String name, String username, String password, Collection<Role> roles, LocalDate dateOfBirth, Address primaryAddress, Address mailingAddress) {
+        super(null, name, username, password, roles);
         this.dateOfBirth = dateOfBirth;
         this.primaryAddress = primaryAddress;
         this.mailingAddress = mailingAddress;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public LocalDate getDateOfBirth() {
@@ -74,11 +62,5 @@ public class AccountHolder {
         this.mailingAddress = mailingAddress;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
