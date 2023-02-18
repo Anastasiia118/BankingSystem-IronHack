@@ -82,6 +82,7 @@ public class SecurityConfig {
                 .requestMatchers(GET, "/balance/{id}").hasAuthority("ROLE_ADMIN")
                 .requestMatchers(POST, "/create/{accountType}/{id}").hasAuthority("ROLE_ADMIN")
                 .requestMatchers(PATCH, "/changeBalance/{id}").hasAuthority("ROLE_ADMIN")
+                .requestMatchers(POST, "/create/3dParty").hasAuthority("ROLE_ADMIN")
                 .requestMatchers(GET, "/checkMyBalance/{id}").hasAuthority("ROLE_ACCOUNT_HOLDER")
                 /*.requestMatchers(GET, "/api/users").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(POST, "/api/users").hasAnyAuthority("ROLE_ADMIN")*/

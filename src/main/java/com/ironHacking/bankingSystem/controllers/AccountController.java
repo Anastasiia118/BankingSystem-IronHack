@@ -1,6 +1,7 @@
 package com.ironHacking.bankingSystem.controllers;
 
 import com.ironHacking.bankingSystem.models.AccountDTO;
+import com.ironHacking.bankingSystem.models.users.ThirdParty;
 import com.ironHacking.bankingSystem.models.utilities.Transfer;
 import com.ironHacking.bankingSystem.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ public class AccountController {
 
         accountService.createAccount(accountType, Long.valueOf(id), accountDTO);
 
+    }
+    @PostMapping("/create/3dParty")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createThirdParty(@RequestBody ThirdParty thirdParty){
+        accountService.create3dParty(thirdParty);
     }
 
 

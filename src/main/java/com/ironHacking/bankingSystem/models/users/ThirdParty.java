@@ -2,6 +2,8 @@ package com.ironHacking.bankingSystem.models.users;
 
 import jakarta.persistence.*;
 
+import javax.validation.constraints.NotNull;
+
 @Entity
 public class ThirdParty {
     @Id
@@ -9,11 +11,16 @@ public class ThirdParty {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private String hashedKey;
 
-
+    public ThirdParty(String name, String hashedKey) {
+        this.name = name;
+        this.hashedKey = hashedKey;
+    }
 
     public String getName() {
         return name;

@@ -28,7 +28,7 @@ public abstract class Account {
     @ManyToOne
     private AccountHolder secondaryOwner;
 
-    private BigDecimal penaltyFee = BigDecimal.valueOf(40);
+    private final BigDecimal penaltyFee = BigDecimal.valueOf(40);
 
     private LocalDate creationDate = LocalDate.now();
 
@@ -43,6 +43,10 @@ public abstract class Account {
         this.primaryOwner = primaryOwner;
         this.secondaryOwner = secondaryOwner;
         this.balance = balance;
+    }
+
+    public BigDecimal getPenaltyFee() {
+        return penaltyFee;
     }
 
     public BigDecimal getBalance() {
@@ -69,13 +73,6 @@ public abstract class Account {
         this.secretKey = secretKey;
     }
 
-    public BigDecimal getPenaltyFee() {
-        return penaltyFee;
-    }
-
-    public void setPenaltyFee(BigDecimal penaltyFee) {
-        this.penaltyFee = penaltyFee;
-    }
 
     public LocalDate getCreationDate() {
         return creationDate;

@@ -1,7 +1,9 @@
 package com.ironHacking.bankingSystem.services;
 
 import com.ironHacking.bankingSystem.models.AccountDTO;
+import com.ironHacking.bankingSystem.models.users.ThirdParty;
 import com.ironHacking.bankingSystem.repositories.AccountRepository;
+import com.ironHacking.bankingSystem.repositories.ThirdPartyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class AccountService {
 
     @Autowired
     CreditCardService creditCardService;
+
+    @Autowired
+    ThirdPartyRepository thirdPartyRepository;
 
     public void createAccount(String accountType, Long id, AccountDTO accountDTO) {
 
@@ -42,5 +47,11 @@ public class AccountService {
             }
 
         }
+    }
+
+    public void create3dParty(ThirdParty thirdParty) {
+        String name = thirdParty.getName();
+        String hashKey = thirdParty.getHashedKey();
+        thirdPartyRepository.save(new ThirdParty(name, hashKey));
     }
 }
