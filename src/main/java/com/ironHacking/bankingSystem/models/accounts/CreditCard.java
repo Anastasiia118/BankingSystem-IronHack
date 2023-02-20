@@ -15,10 +15,12 @@ public class CreditCard extends Account{
     public CreditCard() {
     }
 
-    public CreditCard(BigDecimal balance, String secretKey, @NotNull AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal interestRate, BigDecimal creditLimit) {
-        super(balance, secretKey, primaryOwner, secondaryOwner);
+
+
+    public CreditCard(Long id, BigDecimal balance, String secretKey, AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal interestRate, BigDecimal creditLimit) {
+        super(id, balance, secretKey, primaryOwner, secondaryOwner);
         this.interestRate = interestRate;
-        setCreditLimit(creditLimit);
+        this.creditLimit = creditLimit;
     }
 
     public BigDecimal getInterestRate() {

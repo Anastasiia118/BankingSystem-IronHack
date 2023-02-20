@@ -19,8 +19,8 @@ public class AccountHolderController {
 
     @PostMapping("/makeTransaction")
     @ResponseStatus(HttpStatus.CREATED)
-    public void makeTransaction(@RequestBody Transfer transaction){
-        accountHolderService.transferMoney(transaction);
+    public BigDecimal makeTransaction(@RequestBody Transfer transaction){
+        return accountHolderService.transferMoney(transaction);
     }
 
     @GetMapping("/checkMyBalance/{id}")

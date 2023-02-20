@@ -34,6 +34,7 @@ public class CheckingService {
 
         if (accountHolderRepository.findById(id).isPresent()){
 
+            Long idAccount = accountDTO.getId();
             BigDecimal balance = accountDTO.getBalance();
             String secretKey = accountDTO.getSecretKey();
             AccountHolder accountHolder = accountHolderRepository.findById(id).get();
@@ -47,10 +48,10 @@ public class CheckingService {
             Period age = Period.between(birthDate, todayDate);
 
             if( age.getYears() >= 24){
-                Checking checkingAcc = new Checking(balance, secretKey, accountHolder, accountHolder2);
+                Checking checkingAcc = new Checking(idAccount, balance, secretKey, accountHolder, accountHolder2);
                 return checkingRepository.save(checkingAcc);
             } else {
-                StudentChecking studentAcc = new StudentChecking(balance, secretKey, accountHolder, accountHolder2);
+                StudentChecking studentAcc = new StudentChecking(idAccount, balance, secretKey, accountHolder, accountHolder2);
                 return studentCheckingRepository.save(studentAcc);
             }
 

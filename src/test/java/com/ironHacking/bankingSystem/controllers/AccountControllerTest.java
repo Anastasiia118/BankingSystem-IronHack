@@ -87,8 +87,8 @@ class AccountControllerTest {
         Admins admin1 = new Admins(3L, "Hugh", "adminHugh", "76567", new ArrayList<>());
         adminsRepository.save(admin1);
 
-        checkingRepository.save(new Checking(new BigDecimal("1700"), "secretAna", owner1, owner1));
-        checkingRepository.save(new Checking(new BigDecimal("500"), "secretGim", owner2, owner2));
+        checkingRepository.save(new Checking(1L,new BigDecimal("1700"), "secretAna", owner1, owner1));
+        checkingRepository.save(new Checking(2L, new BigDecimal("500"), "secretGim", owner2, owner2));
     }
 
     @AfterEach
@@ -99,7 +99,7 @@ class AccountControllerTest {
     @Test
     void createAccount() throws Exception {
 
-        AccountDTO accountDTO = new AccountDTO(BigDecimal.valueOf(15000), "secKey", 1L);
+        AccountDTO accountDTO = new AccountDTO(3L, BigDecimal.valueOf(15000), "secKey", 1L);
         String body = objectMapper.writeValueAsString(accountDTO);
         MvcResult mvcResult = mockMvc.perform(post("/create/checking/1").content(body).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated())
                 .andReturn();
@@ -110,7 +110,7 @@ class AccountControllerTest {
     @Test
     void createAccount2() throws Exception {
 
-        AccountDTO accountDTO = new AccountDTO(BigDecimal.valueOf(15000), "secKey", 1L);
+        AccountDTO accountDTO = new AccountDTO(3L, BigDecimal.valueOf(15000), "secKey", 1L);
         String body = objectMapper.writeValueAsString(accountDTO);
         MvcResult mvcResult = mockMvc.perform(post("/create/checkjhghj/1").content(body).contentType(MediaType.APPLICATION_JSON)).andExpect(status().is4xxClientError())
                 .andReturn();

@@ -19,10 +19,10 @@ public class Savings extends Account{
     public Savings() {
     }
 
-    public Savings(BigDecimal balance, String secretKey, @NotNull AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal minimumBalance, BigDecimal interestRate) {
-        super(balance, secretKey, primaryOwner, secondaryOwner);
-        setMinimumBalance(minimumBalance);
-        setInterestRate(interestRate);
+    public Savings(Long id, BigDecimal balance, String secretKey, AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal minimumBalance, BigDecimal interestRate) {
+        super(id, balance, secretKey, primaryOwner, secondaryOwner);
+        this.minimumBalance = minimumBalance;
+        this.interestRate = interestRate;
     }
 
     public BigDecimal getMinimumBalance() {

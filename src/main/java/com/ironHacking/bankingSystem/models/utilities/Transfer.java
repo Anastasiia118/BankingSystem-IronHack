@@ -15,6 +15,14 @@ public class Transfer {
         return idSenderAccount;
     }
 
+    public Transfer(Long idSender, Long idReceiver, Long idSenderAccount, Long idReceiverAccount, BigDecimal amount) {
+        this.idSender = idSender;
+        this.idReceiver = idReceiver;
+        this.idSenderAccount = idSenderAccount;
+        this.idReceiverAccount = idReceiverAccount;
+        this.amount = amount;
+    }
+
     public void setIdSenderAccount(Long idSenderAccount) {
         this.idSenderAccount = idSenderAccount;
     }

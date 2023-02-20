@@ -22,6 +22,7 @@ public class SavingsService {
     AccountHolderRepository accountHolderRepository;
     public Savings createSavings(AccountDTO accountDTO, Long id) {
         if (accountHolderRepository.findById(id).isPresent()){
+            Long idAccount = accountDTO.getId();
             BigDecimal balance = accountDTO.getBalance();
             String secretKey = accountDTO.getSecretKey();
             AccountHolder accountHolder = accountHolderRepository.findById(id).get();
@@ -38,7 +39,7 @@ public class SavingsService {
                 interestRate = accountDTO.getInterestRate();
             }
             //Savings(BigDecimal balance, String secretKey, @NotNull AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal minimumBalance, BigDecimal interestRate)
-            Savings savingAcc = new Savings(balance, secretKey, accountHolder, accountHolder2, minBalance, interestRate);
+            Savings savingAcc = new Savings(idAccount, balance, secretKey, accountHolder, accountHolder2, minBalance, interestRate);
             return savingsRepository.save(savingAcc);
 
         } else{

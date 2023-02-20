@@ -24,6 +24,7 @@ public class CreditCardService {
     AccountHolderRepository accountHolderRepository;
     public CreditCard createCredit(AccountDTO accountDTO, Long id) {
         if (accountHolderRepository.findById(id).isPresent()){
+            Long idAccount = accountDTO.getId();
             BigDecimal balance = accountDTO.getBalance();
             String secretKey = accountDTO.getSecretKey();
             AccountHolder accountHolder = accountHolderRepository.findById(id).get();
@@ -42,7 +43,7 @@ public class CreditCardService {
                 creditLim = accountDTO.getCreditLimit();
             }
             //Savings(BigDecimal balance, String secretKey, @NotNull AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal minimumBalance, BigDecimal interestRate)
-            CreditCard creditAcc = new CreditCard(balance, secretKey, accountHolder, accountHolder2, interestRate, creditLim);
+            CreditCard creditAcc = new CreditCard(idAccount, balance, secretKey, accountHolder, accountHolder2, interestRate, creditLim);
             return creditCardRepository.save(creditAcc);
 
         } else{

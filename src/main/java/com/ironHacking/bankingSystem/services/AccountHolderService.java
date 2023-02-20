@@ -24,7 +24,7 @@ public class AccountHolderService {
     @Autowired
     AccountRepository accountRepository;
 
-    public void transferMoney(Transfer transaction) {
+    public BigDecimal transferMoney(Transfer transaction) {
         Date transferDate ;
 
         if(accountHolderRepository.findById(transaction.getIdSender()).isPresent()){
@@ -61,11 +61,13 @@ public class AccountHolderService {
                                 accountRepository.save(senderAcc);
                                 accReceiver.setBalance(receiverBalance.add(amountToSend));
                                 accountRepository.save(accReceiver);
+                                return senderAcc.getBalance();
                             } else {
                                 senderAcc.setBalance(balanceLeft);
                                 accountRepository.save(senderAcc);
                                 accReceiver.setBalance(receiverBalance.add(amountToSend));
                                 accountRepository.save(accReceiver);
+                                return senderAcc.getBalance();
                             }
 
                         } else if (senderAcc instanceof Savings) {
@@ -79,28 +81,32 @@ public class AccountHolderService {
                                 accountRepository.save(senderAcc);
                                 accReceiver.setBalance(receiverBalance.add(amountToSend));
                                 accountRepository.save(accReceiver);
+                                return senderAcc.getBalance();
                             } else {
                                 senderAcc.setBalance(balanceLeft);
                                 accountRepository.save(senderAcc);
                                 accReceiver.setBalance(receiverBalance.add(amountToSend));
                                 accountRepository.save(accReceiver);
+                                return senderAcc.getBalance();
                             }
                         } else {
                             senderAcc.setBalance(balanceLeft);
                             accountRepository.save(senderAcc);
                             accReceiver.setBalance(receiverBalance.add(amountToSend));
                             accountRepository.save(accReceiver);
+                            return senderAcc.getBalance();
                         }
                     } else if( senderAcc instanceof CreditCard){
                        BigDecimal creditLeft = ((CreditCard) senderAcc).getCreditLimit().subtract(balanceLeft.abs());
                        if(creditLeft.signum() < 0){
-                           throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
+                           throw new ResponseStatusException(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
                                    "Limit is exceeded!");
                        } else{
                            senderAcc.setBalance(creditLeft.negate());
                            accountRepository.save(senderAcc);
                            accReceiver.setBalance(receiverBalance.add(amountToSend));
                            accountRepository.save(accReceiver);
+                           return senderAcc.getBalance();
                        }
                     } else {
                         throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,

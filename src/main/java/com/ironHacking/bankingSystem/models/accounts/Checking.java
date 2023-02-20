@@ -19,8 +19,8 @@ public class Checking extends Account{
     public Checking() {
     }
 
-    public Checking(BigDecimal balance, String secretKey, @NotNull AccountHolder primaryOwner, AccountHolder secondaryOwner) {
-        super(balance, secretKey, primaryOwner, secondaryOwner);
+    public Checking(Long id, BigDecimal balance, String secretKey, AccountHolder primaryOwner, AccountHolder secondaryOwner) {
+        super(id, balance, secretKey, primaryOwner, secondaryOwner);
     }
 
     public BigDecimal getMinimumBalance() {

@@ -13,8 +13,6 @@ import java.time.LocalDate;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     private BigDecimal balance;
@@ -38,12 +36,20 @@ public abstract class Account {
     public Account() {
     }
 
-    public Account(BigDecimal balance, String secretKey, @NotNull AccountHolder primaryOwner, AccountHolder secondaryOwner) {
+    public Account(Long id, BigDecimal balance, String secretKey, AccountHolder primaryOwner, AccountHolder secondaryOwner) {
+        this.id = id;
+        this.balance = balance;
+        this.secretKey = secretKey;
+        this.primaryOwner = primaryOwner;
+        this.secondaryOwner = secondaryOwner;
+    }
+
+    /*public Account(BigDecimal balance, String secretKey, @NotNull AccountHolder primaryOwner, AccountHolder secondaryOwner) {
         this.secretKey = secretKey;
         this.primaryOwner = primaryOwner;
         this.secondaryOwner = secondaryOwner;
         this.balance = balance;
-    }
+    }*/
 
     public BigDecimal getPenaltyFee() {
         return penaltyFee;

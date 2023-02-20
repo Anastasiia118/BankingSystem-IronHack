@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import java.math.BigDecimal;
 
 public class AccountDTO {
+    private Long id;
     private BigDecimal balance;
 
     private String secretKey;
@@ -17,10 +18,19 @@ public class AccountDTO {
 
     private BigDecimal minimumBalance;
 
-    public AccountDTO(BigDecimal balance, String secretKey, Long secondaryOwnerId) {
+    public AccountDTO(Long id, BigDecimal balance, String secretKey, Long secondaryOwnerId) {
+        this.id = id;
         this.balance = balance;
         this.secretKey = secretKey;
         this.secondaryOwnerId = secondaryOwnerId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public BigDecimal getBalance() {
