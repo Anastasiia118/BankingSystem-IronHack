@@ -41,4 +41,13 @@ public class AdminsService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The ID introduced doesn't match any Accounts in our database.");
         }
     }
+
+    public void deleteAcc(Long id) {
+        if (accountRepository.findById(id).isPresent()) {
+            Account account = accountRepository.findById(id).get();
+            accountRepository.delete(account);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The ID introduced doesn't match any Accounts in our database.");
+        }
+    }
 }

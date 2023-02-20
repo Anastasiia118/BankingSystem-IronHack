@@ -24,7 +24,7 @@ This repository contains a **REST API**, created as the **Final project** for Ir
 
 ### User information
 
-**Admins** are in charge of creating new accounts and change the balance of any account. Admins also can create 3d Parties.
+**Admins** are in charge of creating and deleting new accounts and change the balance of any account. Admins also can create 3d Parties.
 
 **Account holders** can be primary or secondary owners of any type of account.
 Once logged in, they can access the information of their own accounts and transfer money from them to any other account in the DB.
@@ -43,11 +43,12 @@ Once logged in, they can access the information of their own accounts and transf
 
 ## API Routes
 
-| Method | Route                                | Description                                      |
-|--------|--------------------------------------|--------------------------------------------------|
-| POST   | /create/{accountType}/{id}           | Create an account of any type                    |
-| POST   | /create/3dParty                      | Create 3d Party                                  |
-| GET    | /checkMyBalance/{id}                 | Checking the balance of AccountHolder's account  |
-| POST   | /makeTransaction                     | Create a transaction between two account holders |
-| GET    | /balance/{id}                        | Checking the balance of any id (only for admins) |
-| PATCH  | /changeBalance/{id}                  | Changing balance (only for admins)               |
+| Method | Route                      | Description                                      |
+|--------|----------------------------|--------------------------------------------------|
+| POST   | /create/{accountType}/{id} | Create an account of any type                    |
+| POST   | /create/3dParty            | Create 3d Party                                  |
+| GET    | /checkMyBalance/{id}       | Checking the balance of AccountHolder's account  |
+| POST   | /makeTransaction           | Create a transaction between two account holders |
+| GET    | /balance/{id}              | Checking the balance of any id (only for admins) |
+| PATCH  | /changeBalance/{id}        | Changing balance (only for admins)               |
+| DELETE | /deleteAcc/{id}            | Delete account (only for admins)                 |

@@ -23,4 +23,10 @@ public class AdminController {
     public void changeBalance(@PathVariable Long id, @RequestParam BigDecimal amount){
         adminsService.modifyBalance(id,amount);
     }
+
+    @DeleteMapping("/deleteAcc/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteAccount(@PathVariable Long id){
+        adminsService.deleteAcc(id);
+    }
 }
