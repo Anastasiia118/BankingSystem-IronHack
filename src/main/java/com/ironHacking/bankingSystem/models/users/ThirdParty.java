@@ -22,6 +22,10 @@ public class ThirdParty {
         this.hashedKey = hashedKey;
     }
 
+    public ThirdParty() {
+
+    }
+
     public String getName() {
         return name;
     }

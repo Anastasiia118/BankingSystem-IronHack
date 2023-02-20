@@ -1,6 +1,7 @@
 package com.ironHacking.bankingSystem.services;
 
 import com.ironHacking.bankingSystem.models.AccountDTO;
+import com.ironHacking.bankingSystem.models.accounts.Account;
 import com.ironHacking.bankingSystem.models.users.ThirdParty;
 import com.ironHacking.bankingSystem.repositories.AccountRepository;
 import com.ironHacking.bankingSystem.repositories.ThirdPartyRepository;
@@ -27,31 +28,35 @@ public class AccountService {
     @Autowired
     ThirdPartyRepository thirdPartyRepository;
 
-    public void createAccount(String accountType, Long id, AccountDTO accountDTO) {
+    public Account createAccount(String accountType, Long id, AccountDTO accountDTO) {
 
         switch (accountType) {
             case "checking" -> {
-                checkingService.createChecking(accountDTO, id);
-                break;
+                return checkingService.createChecking(accountDTO, id);
+
             }
             case "savings" -> {
-                savingsService.createSavings(accountDTO, id);
-                break;
+                return savingsService.createSavings(accountDTO, id);
+
             }
             case "credit" -> {
-                creditCardService.createCredit(accountDTO, id);
-                break;
+                return creditCardService.createCredit(accountDTO, id);
+
             }
             default -> {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The account type is not valid, please re-try.");
             }
 
         }
+
     }
 
-    public void create3dParty(ThirdParty thirdParty) {
+    public ThirdParty create3dParty(ThirdParty thirdParty) {
         String name = thirdParty.getName();
         String hashKey = thirdParty.getHashedKey();
-        thirdPartyRepository.save(new ThirdParty(name, hashKey));
+        if(name == null || hashKey == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Name or hashKey is not provided!");
+        }
+        return thirdPartyRepository.save(new ThirdParty(name, hashKey));
     }
 }

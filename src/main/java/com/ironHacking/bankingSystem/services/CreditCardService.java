@@ -1,6 +1,7 @@
 package com.ironHacking.bankingSystem.services;
 
 import com.ironHacking.bankingSystem.models.AccountDTO;
+import com.ironHacking.bankingSystem.models.accounts.Account;
 import com.ironHacking.bankingSystem.models.accounts.CreditCard;
 import com.ironHacking.bankingSystem.models.accounts.Savings;
 import com.ironHacking.bankingSystem.models.users.AccountHolder;
@@ -21,7 +22,7 @@ public class CreditCardService {
 
     @Autowired
     AccountHolderRepository accountHolderRepository;
-    public void createCredit(AccountDTO accountDTO, Long id) {
+    public CreditCard createCredit(AccountDTO accountDTO, Long id) {
         if (accountHolderRepository.findById(id).isPresent()){
             BigDecimal balance = accountDTO.getBalance();
             String secretKey = accountDTO.getSecretKey();
@@ -42,7 +43,7 @@ public class CreditCardService {
             }
             //Savings(BigDecimal balance, String secretKey, @NotNull AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal minimumBalance, BigDecimal interestRate)
             CreditCard creditAcc = new CreditCard(balance, secretKey, accountHolder, accountHolder2, interestRate, creditLim);
-            creditCardRepository.save(creditAcc);
+            return creditCardRepository.save(creditAcc);
 
         } else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,

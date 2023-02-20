@@ -20,7 +20,6 @@ public class User {
     /**
      * The id field is generated automatically by the database
      */
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * The name of the user

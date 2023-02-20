@@ -31,12 +31,18 @@ public class AccountHolder extends User {
     public AccountHolder() {
     }
 
-    public AccountHolder(String name, String username, String password, Collection<Role> roles, LocalDate dateOfBirth, Address primaryAddress, Address mailingAddress) {
-        super(null, name, username, password, roles);
+    public AccountHolder(Long id, String name, String username, String password, Collection<Role> roles, LocalDate dateOfBirth, Address primaryAddress, Address mailingAddress) {
+        super(id, name, username, password, roles);
         this.dateOfBirth = dateOfBirth;
         this.primaryAddress = primaryAddress;
         this.mailingAddress = mailingAddress;
     }
+    /*public AccountHolder(String name, String username, String password, Collection<Role> roles, LocalDate dateOfBirth, Address primaryAddress, Address mailingAddress) {
+        super(null, name, username, password, roles);
+        this.dateOfBirth = dateOfBirth;
+        this.primaryAddress = primaryAddress;
+        this.mailingAddress = mailingAddress;
+    }*/
 
     public LocalDate getDateOfBirth() {
         return dateOfBirth;

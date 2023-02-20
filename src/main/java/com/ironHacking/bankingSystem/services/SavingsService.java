@@ -1,6 +1,7 @@
 package com.ironHacking.bankingSystem.services;
 
 import com.ironHacking.bankingSystem.models.AccountDTO;
+import com.ironHacking.bankingSystem.models.accounts.Account;
 import com.ironHacking.bankingSystem.models.accounts.Savings;
 import com.ironHacking.bankingSystem.models.users.AccountHolder;
 import com.ironHacking.bankingSystem.repositories.AccountHolderRepository;
@@ -19,7 +20,7 @@ public class SavingsService {
 
     @Autowired
     AccountHolderRepository accountHolderRepository;
-    public void createSavings(AccountDTO accountDTO, Long id) {
+    public Savings createSavings(AccountDTO accountDTO, Long id) {
         if (accountHolderRepository.findById(id).isPresent()){
             BigDecimal balance = accountDTO.getBalance();
             String secretKey = accountDTO.getSecretKey();
@@ -38,7 +39,7 @@ public class SavingsService {
             }
             //Savings(BigDecimal balance, String secretKey, @NotNull AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal minimumBalance, BigDecimal interestRate)
             Savings savingAcc = new Savings(balance, secretKey, accountHolder, accountHolder2, minBalance, interestRate);
-            savingsRepository.save(savingAcc);
+            return savingsRepository.save(savingAcc);
 
         } else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,

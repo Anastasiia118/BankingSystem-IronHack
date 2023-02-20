@@ -1,6 +1,7 @@
 package com.ironHacking.bankingSystem.services;
 
 import com.ironHacking.bankingSystem.models.AccountDTO;
+import com.ironHacking.bankingSystem.models.accounts.Account;
 import com.ironHacking.bankingSystem.models.accounts.Checking;
 import com.ironHacking.bankingSystem.models.accounts.StudentChecking;
 import com.ironHacking.bankingSystem.models.users.AccountHolder;
@@ -29,7 +30,7 @@ public class CheckingService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public void createChecking(AccountDTO accountDTO, Long id) {
+    public Account createChecking(AccountDTO accountDTO, Long id) {
 
         if (accountHolderRepository.findById(id).isPresent()){
 
@@ -47,10 +48,10 @@ public class CheckingService {
 
             if( age.getYears() >= 24){
                 Checking checkingAcc = new Checking(balance, secretKey, accountHolder, accountHolder2);
-                checkingRepository.save(checkingAcc);
+                return checkingRepository.save(checkingAcc);
             } else {
                 StudentChecking studentAcc = new StudentChecking(balance, secretKey, accountHolder, accountHolder2);
-                studentCheckingRepository.save(studentAcc);
+                return studentCheckingRepository.save(studentAcc);
             }
 
         } else {

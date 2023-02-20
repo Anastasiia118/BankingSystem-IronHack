@@ -1,6 +1,7 @@
 package com.ironHacking.bankingSystem.controllers;
 
 import com.ironHacking.bankingSystem.models.AccountDTO;
+import com.ironHacking.bankingSystem.models.accounts.Account;
 import com.ironHacking.bankingSystem.models.users.ThirdParty;
 import com.ironHacking.bankingSystem.models.utilities.Transfer;
 import com.ironHacking.bankingSystem.services.AccountService;
@@ -15,15 +16,16 @@ public class AccountController {
 
     @PostMapping("/create/{accountType}/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createAccount(@PathVariable String accountType, @PathVariable String id, @RequestBody AccountDTO accountDTO) {
+    public Account createAccount(@PathVariable String accountType, @PathVariable String id, @RequestBody AccountDTO accountDTO) {
 
-        accountService.createAccount(accountType, Long.valueOf(id), accountDTO);
+       return  accountService.createAccount(accountType, Long.valueOf(id), accountDTO);
+
 
     }
     @PostMapping("/create/3dParty")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createThirdParty(@RequestBody ThirdParty thirdParty){
-        accountService.create3dParty(thirdParty);
+    public ThirdParty createThirdParty(@RequestBody ThirdParty thirdParty){
+       return accountService.create3dParty(thirdParty);
     }
 
 

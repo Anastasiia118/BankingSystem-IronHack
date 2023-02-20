@@ -10,8 +10,7 @@ public class Admins extends User{
     public Admins() {
     }
 
-    public Admins(String name, String username, String password, Collection<Role> roles) {
-        super(null, name, username, password, roles);
+    public Admins(Long id, String name, String username, String password, Collection<Role> roles) {
+        super(id, name, username, password, roles);
     }
-
 }

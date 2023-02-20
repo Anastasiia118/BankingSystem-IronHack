@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Objects;
 
 @Service
@@ -24,6 +25,7 @@ public class AccountHolderService {
     AccountRepository accountRepository;
 
     public void transferMoney(Transfer transaction) {
+        Date transferDate ;
 
         if(accountHolderRepository.findById(transaction.getIdSender()).isPresent()){
             AccountHolder sender = accountHolderRepository.findById(transaction.getIdSender()).get();

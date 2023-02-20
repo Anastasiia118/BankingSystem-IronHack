@@ -17,6 +17,12 @@ public class AccountDTO {
 
     private BigDecimal minimumBalance;
 
+    public AccountDTO(BigDecimal balance, String secretKey, Long secondaryOwnerId) {
+        this.balance = balance;
+        this.secretKey = secretKey;
+        this.secondaryOwnerId = secondaryOwnerId;
+    }
+
     public BigDecimal getBalance() {
         return balance;
     }
